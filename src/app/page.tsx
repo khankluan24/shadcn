@@ -7,6 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Recipe {
   title: string;
@@ -29,15 +32,21 @@ export default async function Home() {
         {recipes.map((el) => (
           <Card key={el.id} className="flex flex-col justify-between">
             <CardHeader className="flex gap-4 items-center">
-              <CardTitle>{el.title}</CardTitle>
-              <CardDescription>{el.time} mins to cook.</CardDescription>
+              <Avatar>
+                <AvatarImage src={`/img/${el.image}`} alt="recipe image" />
+                <AvatarFallback>{el.title.slice(0, 2)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle>{el.title}</CardTitle>
+                <CardDescription>{el.time} mins to cook.</CardDescription>
+              </div>
             </CardHeader>
             <CardContent>
               <p>{el.description}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <button>View recipe</button>
-              {el.vegan && <p>Vegan !!!</p>}
+              <Button>View recipe</Button>
+              {el.vegan && <Badge variant="secondary">Vegan !!!</Badge>}
             </CardFooter>
           </Card>
         ))}
